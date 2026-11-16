@@ -1,0 +1,47 @@
+{
+  "name": "@apiverve/evchargingstations",
+  "version": "1.2.6",
+  "description": "EV Charging Stations finds electric vehicle charging stations within a radius of a point, a ZIP or postal code, or a city, across the US and Canada, sorted by distance. Each station returns its address, coordinates, distance, status, access, network, Level 1, Level 2 and DC fast port counts and connector types. Filter by connector, network, charging level or fast charging only. Paid plans add charging power in kW, pricing, access hours, phone, facility type and open dates.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "example": "node examples/basic.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiverve/evchargingstations-api.git",
+    "directory": "npm"
+  },
+  "keywords": [
+    "ev charging stations api", "ev charger api", "electric vehicle charging api", "charging station locator", "nearby ev chargers"
+  ],
+  "author": {
+    "name": "APIVerve",
+    "email": "hello@apiverve.com",
+    "url": "https://apiverve.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apiverve/evchargingstations-api/issues"
+  },
+  "homepage": "https://apiverve.com/marketplace/evchargingstations?utm_source=npm&utm_medium=referral&utm_content=homepage",
+  "devDependencies": {
+    "mocha": "^11.0.1",
+    "chai": "^5.1.2",
+    "dotenv": "^16.4.7"
+  },
+  "dependencies": {
+    "axios": "1.13.2",
+    "form-data": "^4.0.1"
+  }
+}
