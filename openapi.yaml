@@ -1,0 +1,251 @@
+openapi: 3.0.4
+info:
+  title: EV Charging Stations
+  description: >-
+    EV Charging Stations finds electric vehicle charging stations within a
+    radius of a point, a ZIP or postal code, or a city, across the US and
+    Canada, sorted by distance. Each station returns its address, coordinates,
+    distance, status, access, network, Level 1, Level 2 and DC fast port counts
+    and connector types. Filter by connector, network, charging level or fast
+    charging only. Paid plans add charging power in kW, pricing, access hours,
+    phone, facility type and open dates.
+  termsOfService: https://apiverve.com/terms/
+  contact:
+    name: APIVerve Support
+    email: hello@apiverve.com
+    url: https://apiverve.com/contact
+  version: 1.0.0
+externalDocs:
+  description: Learn more about APIVerve
+  url: https://docs.apiverve.com?utm_source=openapi
+servers:
+  - url: https://api.apiverve.com/
+paths:
+  /v1/evchargingstations:
+    get:
+      summary: EV Charging Stations
+      description: >-
+        Get EV charging stations within a radius of coordinates, a ZIP or postal
+        code, or a city, sorted by distance
+      operationId: evchargingstations
+      parameters:
+        - name: lat
+          in: query
+          schema:
+            type: number
+          required: false
+          description: >-
+            Latitude of the search centre. Use lat and lon, a zip, or a city and
+            state
+          example: 37.7749
+        - name: lon
+          in: query
+          schema:
+            type: number
+          required: false
+          description: Longitude of the search centre
+          example: -122.4194
+        - name: zip
+          in: query
+          schema:
+            type: string
+          required: false
+          description: US ZIP code or Canadian postal code to search around
+          example: '10001'
+        - name: city
+          in: query
+          schema:
+            type: string
+          required: false
+          description: City to search around, with state
+          example: Toronto
+        - name: state
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Two-letter US state or Canadian province code, with city
+          example: 'ON'
+        - name: radius
+          in: query
+          schema:
+            type: number
+          required: false
+          description: Search radius in kilometres, up to 80
+          example: 10
+        - name: connector
+          in: query
+          schema:
+            type: string
+          required: false
+          description: >-
+            Only stations with one of these connectors, comma-separated: j1772,
+            ccs, chademo, nacs, nema515, nema520, nema1450, mcs
+          example: ccs
+        - name: network
+          in: query
+          schema:
+            type: string
+          required: false
+          description: >-
+            Only stations on a network whose name contains this, for example
+            Tesla, ChargePoint or Electrify America
+          example: Tesla
+        - name: level
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Only stations with ports at this charging level
+          example: '2'
+        - name: fastOnly
+          in: query
+          schema:
+            type: boolean
+          required: false
+          description: Only stations with DC fast charging
+          example: true
+        - name: access
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Public stations (default), private ones, or all
+          example: public
+        - name: status
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Open stations (default), planned, temporarily unavailable, or all
+          example: open
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          required: false
+          description: Maximum number of stations to return, 1-100
+          example: 20
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: status
+                  error:
+                    type: string
+                    description: error
+                  data:
+                    type: object
+                    description: data
+              example:
+                status: ok
+                error: null
+                data:
+                  count: 16
+                  returned: 2
+                  searchCenter:
+                    latitude: 37.7749
+                    longitude: -122.4194
+                    source: coordinates
+                  radiusKm: 2
+                  stations:
+                    - name: HUDSON PACIFIC 1455 LOBBY 2
+                      status: open
+                      access: public
+                      address:
+                        street: 1455 Market St
+                        city: San Francisco
+                        state: CA
+                        zip: '94103'
+                        country: US
+                      latitude: 37.775747
+                      longitude: -122.418214
+                      distanceKm: 0.14
+                      distanceMiles: 0.09
+                      network: ChargePoint Network
+                      ports:
+                        level1: 0
+                        level2: 0
+                        dcFast: 1
+                        total: 1
+                      fastCharging: true
+                      connectors:
+                        - type: chademo
+                          name: CHAdeMO
+                          level: dc_fast
+                          ports: 1
+                          maxPowerKw: 62.5
+                        - type: ccs
+                          name: CCS1 (J1772 Combo)
+                          level: dc_fast
+                          ports: 1
+                          maxPowerKw: 62
+                      maxPowerKw: 62.5
+                      accessHours: 24 hours daily
+                      pricing: null
+                      facilityType: null
+                      phone: 888-758-4389
+                      networkWebsite: https://www.chargepoint.com
+                      openDate: '2022-11-18'
+                      expectedOpenDate: null
+                      lastConfirmed: '2026-11-14'
+                    - name: HUDSON PACIFIC 1455 LOBBY 1
+                      status: open
+                      access: public
+                      address:
+                        street: 1455 Market St
+                        city: San Francisco
+                        state: CA
+                        zip: '94103'
+                        country: US
+                      latitude: 37.775745
+                      longitude: -122.418191
+                      distanceKm: 0.14
+                      distanceMiles: 0.09
+                      network: ChargePoint Network
+                      ports:
+                        level1: 0
+                        level2: 0
+                        dcFast: 1
+                        total: 1
+                      fastCharging: true
+                      connectors:
+                        - type: chademo
+                          name: CHAdeMO
+                          level: dc_fast
+                          ports: 1
+                          maxPowerKw: 62.5
+                        - type: ccs
+                          name: CCS1 (J1772 Combo)
+                          level: dc_fast
+                          ports: 1
+                          maxPowerKw: 62
+                      maxPowerKw: 62.5
+                      accessHours: 24 hours daily
+                      pricing: null
+                      facilityType: null
+                      phone: 888-758-4389
+                      networkWebsite: https://www.chargepoint.com
+                      openDate: '2022-11-18'
+                      expectedOpenDate: null
+                      lastConfirmed: '2026-11-14'
+        '401':
+          description: Your request was not authorized, or your API Key was invalid
+        '404':
+          description: Requested resource was not found
+        '500':
+          description: A server error has occurred, try again later
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+security:
+  - api_key: []
